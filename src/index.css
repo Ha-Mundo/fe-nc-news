@@ -11,31 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-/* .articles {
-  display: flex;
-  flex-direction: column;
-  margin: 0.2rem;
-  align-items: center;
-  justify-content: center;
-} */
+
+h5,
+h6 {
+  margin: 0.5rem;
+}
 
 .articleCard {
+  text-align: left;
+  padding: 1rem;
+  border: 2px solid dodgerblue;
+  border-radius: 0.3rem;
   display: inline-block;
-  width: 25rem;
-  height: 25rem;
+  width: 30rem;
   margin: 1rem;
 }
 
-.article_card_footer {
+.articleTopic {
+  text-align: right;
+  //display: inline-block;
+  background-color: antiquewhite;
+  padding: 0.3rem;
+  border-radius: 50px;
+}
+
+.articleDetails {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .article_card_footer {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .article_card_footer > p {
