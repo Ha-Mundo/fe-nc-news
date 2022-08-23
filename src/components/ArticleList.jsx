@@ -1,17 +1,19 @@
 import { getArticles } from "../api";
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
 import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
+  const { topic } = useParams();
 
   useEffect(() => {
-    getArticles().then(res => {
+    getArticles(topic).then(res => {
       setArticles(res);
     });
-  }, []);
+  }, [topic]);
 
   return (
     <div className="articles">
