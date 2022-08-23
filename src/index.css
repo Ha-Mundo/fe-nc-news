@@ -17,6 +17,32 @@ h6 {
   margin: 0.5rem;
 }
 
+li {
+  display: inline-block;
+  list-style-type: none;
+  padding: 0.1rem;
+  margin: 0.1rem;
+  font-weight: bolder;
+}
+
+a {
+  color: dodgerblue;
+  margin: 0.2rem 2.5rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: rgb(18, 95, 173);
+}
+
+.flex-row {
+  display: flex;
+  margin: 0.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
 .articleCard {
   text-align: left;
   padding: 1rem;
