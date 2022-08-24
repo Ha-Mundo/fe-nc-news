@@ -32,3 +32,9 @@ export const updateVote = (article_id, inc_votes) => {
     })
     .catch(err => Promise.reject(err));
 };
+
+export const getComments = article_id => {
+  return newsApi.get(`/articles/${article_id}/comments`).then(res => {
+    return res.data.comments;
+  });
+};
