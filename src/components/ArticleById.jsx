@@ -1,4 +1,5 @@
 import { getArticleById, updateVote } from "../api";
+import ArticleComments from "./ArticleComments";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -43,7 +44,7 @@ const ArticleById = () => {
 
   return (
     <div>
-      <div className="SingleArticle">
+      <div className="singleArticle">
         <div className="centerArticle">
           <h2>{article.title}</h2>
           <h5>{article.author}</h5>
@@ -70,6 +71,7 @@ const ArticleById = () => {
             <p>{article.comment_count} </p>
           </div>
         </div>
+        <ArticleComments />
       </div>
     </div>
   );
