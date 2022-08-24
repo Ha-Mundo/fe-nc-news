@@ -9,22 +9,25 @@ import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
 
 const ArticleById = () => {
   const { article_id } = useParams();
-  const [article, setArticle] = useState([]);
+  const [article, setArticle] = useState({});
+  const [voteCounter, setVoteCounter] = useState();
 
   const [disable, setDisable] = useState(false);
 
   useEffect(() => {
     getArticleById(article_id).then(res => {
       setArticle(res);
+      setVoteCounter(res.votes);
     });
   }, [article_id]);
 
+  console.log(article);
   const handleVote = () => {
     if (disable === false) {
       updateVote(article_id, 1).catch(() =>
         alert("Error can not update votes")
       );
-      article.votes += 1;
+      setVoteCounter(currVoteCounter => currVoteCounter + 1);
       setDisable(true);
       console.log(disable);
     }
@@ -32,7 +35,8 @@ const ArticleById = () => {
       updateVote(article_id, -1).catch(() =>
         alert("Error can not update votes")
       );
-      article.votes -= 1;
+
+      setVoteCounter(currVoteCounter => currVoteCounter - 1);
       setDisable(false);
     }
   };
@@ -55,7 +59,7 @@ const ArticleById = () => {
               />{" "}
               {/*  {article.votes} */}
             </IconButton>
-            <p>{article.votes}</p>
+            <p>{voteCounter}</p>
             <IconButton>
               <CommentTwoToneIcon
                 fontSize="large"
