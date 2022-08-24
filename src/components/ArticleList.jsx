@@ -1,6 +1,6 @@
 import { getArticles } from "../api";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
 import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
@@ -21,7 +21,11 @@ const ArticleList = () => {
       <ul className="articleList">
         {articles.map(article => {
           return (
-            <div key={article.article_id} className="articleCard">
+            <Link
+              to={`/articles/${article.article_id}`}
+              key={article.article_id}
+              className="articleCard"
+            >
               <h4 className="articleTopic"> {article.topic} </h4>
               <h3 className="articleTitle"> {article.title}</h3>
               <div className="articleDetails">
@@ -47,7 +51,7 @@ const ArticleList = () => {
                   {article.comment_count}
                 </p>
               </div>
-            </div>
+            </Link>
           );
         })}
       </ul>

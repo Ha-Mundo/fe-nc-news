@@ -19,7 +19,7 @@ const Navbar = () => {
         <ul className="flex-row">
           {topics.map(eachTopic => {
             return (
-              <Link to={`articles/${eachTopic.slug}`} key={eachTopic.slug}>
+              <Link to={`topics/${eachTopic.slug}`} key={eachTopic.slug}>
                 <li>{eachTopic.slug}</li>
               </Link>
             );
