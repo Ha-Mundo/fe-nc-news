@@ -29,7 +29,9 @@ const ArticleById = () => {
       console.log(disable);
     }
     if (disable === true) {
-      updateVote(article_id, -1);
+      updateVote(article_id, -1).catch(() =>
+        alert("Error can not update votes")
+      );
       article.votes -= 1;
       setDisable(false);
     }
