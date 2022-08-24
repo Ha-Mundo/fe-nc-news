@@ -85,6 +85,29 @@ a:hover {
   margin: 0.3rem;
 }
 
+.centerArticle {
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  text-transform: capitalize;
+}
+
+.articleCard {
+  background: #fff;
+  margin-top: 20px;
+  margin-right: 10px;
+  padding: 20px 20px 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(#000, 0.2);
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.articleCard:hover {
+  box-shadow: 0 2px 4px rgba(#000, 0.2), 0 4px 8px rgba(#000, 0.2);
+}
+
 @media only screen and (max-width: 600px) {
   li {
     max-width: 0.5rem;
