@@ -1,12 +1,12 @@
 import React from "react";
-
-import ArticleList from "./ArticleList";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <div className="header">
-      <h1>Nc-News</h1>
-      <ArticleList />
+      <Link to={"/"}>
+        <h1 id="title">Nc-News</h1>
+      </Link>
     </div>
   );
 };

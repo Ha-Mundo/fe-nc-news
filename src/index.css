@@ -17,19 +17,53 @@ h6 {
   margin: 0.5rem;
 }
 
+li {
+  display: inline-block;
+  list-style-type: none;
+  padding: 0.1rem;
+  margin: 0.1rem;
+  font-weight: bolder;
+}
+
+a {
+  color: dodgerblue;
+  margin: 0.2rem 2.5rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: rgb(18, 95, 173);
+}
+.articles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  margin: 1rem 3rem;
+}
+
+.flex-row {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
 .articleCard {
   text-align: left;
   padding: 1rem;
   border: 2px solid dodgerblue;
   border-radius: 0.3rem;
   display: inline-block;
-  width: 30rem;
+  width: 25rem;
   margin: 1rem;
 }
 
 .articleTopic {
   text-align: right;
-  //display: inline-block;
   background-color: antiquewhite;
   padding: 0.3rem;
   border-radius: 50px;
@@ -49,4 +83,20 @@ h6 {
 
 .article_card_footer > p {
   margin: 0.3rem;
+}
+
+@media only screen and (max-width: 600px) {
+  li {
+    max-width: 0.5rem;
+  }
+
+  .articles {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .articleCard {
+    display: block;
+    max-width: 15rem;
+  }
 }
