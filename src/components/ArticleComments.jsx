@@ -12,6 +12,10 @@ const ArticleComments = () => {
     });
   }, [article_id]);
 
+  if (comments === []) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="articleComments">
       <h3>Article Comments</h3>
