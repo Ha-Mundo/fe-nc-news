@@ -1,22 +1,45 @@
-import { getArticleById } from "../api";
+import { getArticleById, updateVote } from "../api";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import Navbar from "./Navbar";
 import { IconButton } from "@mui/material";
 import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
 import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
 
 const ArticleById = () => {
   const { article_id } = useParams();
-  const [article, setArticle] = useState([]);
+  const [article, setArticle] = useState({});
+  const [voteCounter, setVoteCounter] = useState();
+
+  const [disable, setDisable] = useState(false);
 
   useEffect(() => {
     getArticleById(article_id).then(res => {
       setArticle(res);
+      setVoteCounter(res.votes);
     });
   }, [article_id]);
+
+  console.log(article);
+  const handleVote = () => {
+    if (disable === false) {
+      updateVote(article_id, 1).catch(() =>
+        alert("Error can not update votes")
+      );
+      setVoteCounter(currVoteCounter => currVoteCounter + 1);
+      setDisable(true);
+      console.log(disable);
+    }
+    if (disable === true) {
+      updateVote(article_id, -1).catch(() =>
+        alert("Error can not update votes")
+      );
+
+      setVoteCounter(currVoteCounter => currVoteCounter - 1);
+      setDisable(false);
+    }
+  };
 
   return (
     <div>
@@ -28,15 +51,15 @@ const ArticleById = () => {
         <div className="articleCard">
           <p>{article.body}</p>
           <div className="flex-row">
-            <IconButton>
+            <IconButton onClick={handleVote}>
               <ThumbUpTwoToneIcon
                 fontSize="large"
                 className="icon"
-                color="primary"
+                color={disable ? "grey" : "primary"}
               />{" "}
               {/*  {article.votes} */}
             </IconButton>
-            <p>{article.votes}</p>
+            <p>{voteCounter}</p>
             <IconButton>
               <CommentTwoToneIcon
                 fontSize="large"

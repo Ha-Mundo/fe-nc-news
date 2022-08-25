@@ -23,3 +23,12 @@ export const getArticleById = article_id => {
     return res.data.article;
   });
 };
+
+export const updateVote = (article_id, inc_votes) => {
+  return newsApi
+    .patch(`articles/${article_id}`, { inc_votes })
+    .then(res => {
+      return res.data.article.votes;
+    })
+    .catch(err => Promise.reject(err));
+};
