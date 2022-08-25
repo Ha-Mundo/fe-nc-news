@@ -15,6 +15,10 @@ const ArticleList = () => {
     });
   }, [topic]);
 
+  if (articles === []) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="articles">
       <h2>Articles</h2>

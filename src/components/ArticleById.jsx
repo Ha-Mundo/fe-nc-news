@@ -1,4 +1,5 @@
 import { getArticleById, updateVote } from "../api";
+import ArticleComments from "./ArticleComments";
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -13,6 +14,7 @@ const ArticleById = () => {
   const [voteCounter, setVoteCounter] = useState();
 
   const [disable, setDisable] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     getArticleById(article_id).then(res => {
@@ -24,32 +26,39 @@ const ArticleById = () => {
   console.log(article);
   const handleVote = () => {
     if (disable === false) {
-      updateVote(article_id, 1).catch(() =>
-        alert("Error can not update votes")
-      );
+      updateVote(article_id, 1).catch(err => {
+        setHasError(true);
+        setVoteCounter(currVoteCounter => currVoteCounter - 1);
+      });
       setVoteCounter(currVoteCounter => currVoteCounter + 1);
       setDisable(true);
       console.log(disable);
     }
     if (disable === true) {
-      updateVote(article_id, -1).catch(() =>
-        alert("Error can not update votes")
-      );
+      updateVote(article_id, -1).catch(err => {
+        setHasError(true);
+        setVoteCounter(0);
+      });
 
       setVoteCounter(currVoteCounter => currVoteCounter - 1);
       setDisable(false);
     }
   };
 
+  if (article === {}) {
+    return <p className="loader">Loading...</p>;
+  }
+
   return (
     <div>
-      <div className="SingleArticle">
+      <div className="singleArticle">
         <div className="centerArticle">
           <h2>{article.title}</h2>
           <h5>{article.author}</h5>
         </div>
         <div className="articleCard">
           <p>{article.body}</p>
+          {hasError && <p className="error">Oh no! Something's gone wrong!</p>}
           <div className="flex-row">
             <IconButton onClick={handleVote}>
               <ThumbUpTwoToneIcon
@@ -70,6 +79,7 @@ const ArticleById = () => {
             <p>{article.comment_count} </p>
           </div>
         </div>
+        <ArticleComments />
       </div>
     </div>
   );
