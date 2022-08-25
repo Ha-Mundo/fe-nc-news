@@ -14,6 +14,7 @@ const ArticleById = () => {
   const [voteCounter, setVoteCounter] = useState();
 
   const [disable, setDisable] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     getArticleById(article_id).then(res => {
@@ -25,22 +26,28 @@ const ArticleById = () => {
   console.log(article);
   const handleVote = () => {
     if (disable === false) {
-      updateVote(article_id, 1).catch(() =>
-        alert("Error can not update votes")
-      );
+      updateVote(article_id, 1).catch(err => {
+        setHasError(true);
+        setVoteCounter(0);
+      });
       setVoteCounter(currVoteCounter => currVoteCounter + 1);
       setDisable(true);
       console.log(disable);
     }
     if (disable === true) {
-      updateVote(article_id, -1).catch(() =>
-        alert("Error can not update votes")
-      );
+      updateVote(article_id, -1).catch(err => {
+        setHasError(true);
+        setVoteCounter(0);
+      });
 
       setVoteCounter(currVoteCounter => currVoteCounter - 1);
       setDisable(false);
     }
   };
+
+  if (article === {}) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
@@ -51,6 +58,7 @@ const ArticleById = () => {
         </div>
         <div className="articleCard">
           <p>{article.body}</p>
+          {hasError && <p className="error">Oh no! Something's gone wrong!</p>}
           <div className="flex-row">
             <IconButton onClick={handleVote}>
               <ThumbUpTwoToneIcon
