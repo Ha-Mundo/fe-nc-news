@@ -35,9 +35,12 @@ a {
 a:hover {
   color: rgb(18, 95, 173);
 }
-.error {
+.error,
+.loader {
   text-align: center;
+  font-weight: bold;
 }
+
 .articles {
   display: flex;
   flex-direction: column;
