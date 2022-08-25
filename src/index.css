@@ -35,6 +35,9 @@ a {
 a:hover {
   color: rgb(18, 95, 173);
 }
+.error {
+  text-align: center;
+}
 .articles {
   display: flex;
   flex-direction: column;
