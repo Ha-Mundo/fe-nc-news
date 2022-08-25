@@ -28,7 +28,7 @@ const ArticleById = () => {
     if (disable === false) {
       updateVote(article_id, 1).catch(err => {
         setHasError(true);
-        setVoteCounter(0);
+        setVoteCounter(currVoteCounter => currVoteCounter - 1);
       });
       setVoteCounter(currVoteCounter => currVoteCounter + 1);
       setDisable(true);
