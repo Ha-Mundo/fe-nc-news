@@ -13,7 +13,7 @@ const ArticleComments = () => {
   }, [article_id]);
 
   if (comments === []) {
-    return <p>Loading...</p>;
+    return <p className="loader">Loading...</p>;
   }
 
   return (

@@ -16,7 +16,7 @@ const ArticleList = () => {
   }, [topic]);
 
   if (articles === []) {
-    return <p>Loading...</p>;
+    return <p className="loader">Loading...</p>;
   }
 
   return (
