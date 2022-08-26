@@ -8,7 +8,6 @@ const Navbar = () => {
 
   useEffect(() => {
     getTopics().then(data => {
-      console.log(data);
       setTopics(data);
     });
   }, []);

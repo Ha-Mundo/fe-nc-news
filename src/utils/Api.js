@@ -12,14 +12,12 @@ export const getTopics = () => {
 
 export const getArticles = topic => {
   return newsApi.get("/articles", { params: { topic } }).then(res => {
-    console.log(res);
     return res.data.articles;
   });
 };
 
 export const getArticleById = article_id => {
   return newsApi.get(`/articles/${article_id}`).then(res => {
-    console.log(res);
     return res.data.article;
   });
 };

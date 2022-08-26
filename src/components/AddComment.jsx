@@ -8,7 +8,6 @@ const AddComment = ({ comments, setComments }) => {
   const [comment, setComment] = useState("");
   const { user } = useContext(UserContext);
   const { article_id } = useParams();
-  console.log(user);
 
   const handleChange = event => {
     setComment(event.target.value);
@@ -36,7 +35,6 @@ const AddComment = ({ comments, setComments }) => {
         newComments.push(res[0]);
         setComments(newComments);
         setComment("");
-        console.log(res);
       })
       .catch(err => {
         alert("Impossible to post... try again!");
