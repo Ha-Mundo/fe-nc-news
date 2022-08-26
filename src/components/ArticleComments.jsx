@@ -1,10 +1,14 @@
-import { getComments } from "../api";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+
+import { UserContext } from "../utils/Context";
+import { getComments } from "../utils/Api";
+import AddComment from "./AddComment";
 
 const ArticleComments = () => {
   const { article_id } = useParams();
   const [comments, setComments] = useState([]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     getComments(article_id).then(res => {
@@ -13,11 +17,12 @@ const ArticleComments = () => {
   }, [article_id]);
 
   if (comments === []) {
-    return <p>Loading...</p>;
+    return <p className="loader">Loading...</p>;
   }
 
   return (
     <div className="articleComments">
+      <AddComment comments={comments} setComments={setComments} />
       <h3>Article Comments</h3>
       <ul className="commentList">
         {comments.map(comment => {

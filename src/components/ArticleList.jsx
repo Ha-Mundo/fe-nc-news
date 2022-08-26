@@ -1,4 +1,4 @@
-import { getArticles } from "../api";
+import { getArticles } from "../utils/Api";
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const ArticleList = () => {
   }, [topic]);
 
   if (articles === []) {
-    return <p>Loading...</p>;
+    return <p className="loader">Loading...</p>;
   }
 
   return (

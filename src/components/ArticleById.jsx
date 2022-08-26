@@ -1,4 +1,4 @@
-import { getArticleById, updateVote } from "../api";
+import { getArticleById, updateVote } from "../utils/Api";
 import ArticleComments from "./ArticleComments";
 
 import React, { useState, useEffect } from "react";
@@ -23,7 +23,6 @@ const ArticleById = () => {
     });
   }, [article_id]);
 
-  console.log(article);
   const handleVote = () => {
     if (disable === false) {
       updateVote(article_id, 1).catch(err => {
@@ -32,7 +31,6 @@ const ArticleById = () => {
       });
       setVoteCounter(currVoteCounter => currVoteCounter + 1);
       setDisable(true);
-      console.log(disable);
     }
     if (disable === true) {
       updateVote(article_id, -1).catch(err => {

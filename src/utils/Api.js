@@ -12,14 +12,12 @@ export const getTopics = () => {
 
 export const getArticles = topic => {
   return newsApi.get("/articles", { params: { topic } }).then(res => {
-    console.log(res);
     return res.data.articles;
   });
 };
 
 export const getArticleById = article_id => {
   return newsApi.get(`/articles/${article_id}`).then(res => {
-    console.log(res);
     return res.data.article;
   });
 };
@@ -34,4 +32,14 @@ export const getComments = article_id => {
   return newsApi.get(`/articles/${article_id}/comments`).then(res => {
     return res.data.comments;
   });
+};
+
+export const postComment = (article_id, request) => {
+  return newsApi.post(`/articles/${article_id}/comments`, request).then(res => {
+    return res.data.comment;
+  });
+};
+
+export const getUsers = () => {
+  return newsApi.get(`/users`).then(res => res.data.users);
 };
