@@ -35,10 +35,31 @@ a {
 a:hover {
   color: rgb(18, 95, 173);
 }
+button {
+  background-color: cornflowerblue;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+}
+
+button:hover {
+  background-color: rgb(49, 105, 208);
+}
+
 .error,
 .loader {
   text-align: center;
   font-weight: bold;
+}
+.hidden {
+  display: none;
+}
+#success {
+  text-align: center;
+  color: royalblue;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .articles {
@@ -144,6 +165,9 @@ a:hover {
   text-transform: capitalize;
 }
 
+.comment_form {
+  display: flex;
+}
 @media only screen and (max-width: 600px) {
   li {
     max-width: 0.5rem;
