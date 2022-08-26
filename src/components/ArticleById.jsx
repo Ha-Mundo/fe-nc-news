@@ -1,4 +1,4 @@
-import { getArticleById, updateVote } from "../api";
+import { getArticleById, updateVote } from "../utils/Api";
 import ArticleComments from "./ArticleComments";
 
 import React, { useState, useEffect } from "react";

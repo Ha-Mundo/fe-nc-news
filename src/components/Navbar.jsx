@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
-import { getTopics } from "../api";
+import { getTopics } from "../utils/Api";
 
 const Navbar = () => {
   const [topics, setTopics] = useState([]);
