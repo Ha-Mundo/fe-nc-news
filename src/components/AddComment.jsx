@@ -1,7 +1,7 @@
-import { postComment } from "../utils/Api";
 import React, { useState, useContext } from "react";
 import { useParams } from "react-router";
 
+import { postComment } from "../utils/Api";
 import { UserContext } from "../utils/Context";
 
 const AddComment = ({ comments, setComments }) => {
