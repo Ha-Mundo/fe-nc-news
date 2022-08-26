@@ -2,18 +2,32 @@ import { getArticles } from "../utils/Api";
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 
+import SortBy from "./SortBy";
+
 import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
 import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
+  const [sortValue, setSortValue] = useState("created_at");
+  const [orderValue, setOrderValue] = useState();
   const { topic } = useParams();
 
+  function handleOrder() {
+    return setOrderValue(currentOrder => {
+      if (currentOrder === "ASC") {
+        return "DESC";
+      } else {
+        return "ASC";
+      }
+    });
+  }
+
   useEffect(() => {
-    getArticles(topic).then(res => {
+    getArticles(topic, sortValue, orderValue).then(res => {
       setArticles(res);
     });
-  }, [topic]);
+  }, [topic, sortValue, orderValue]);
 
   if (articles === []) {
     return <p className="loader">Loading...</p>;
@@ -22,6 +36,12 @@ const ArticleList = () => {
   return (
     <div className="articles">
       <h2>Articles</h2>
+      <div className="flex-row">
+        <SortBy sortValue={sortValue} setSortValue={setSortValue} />
+        <button id="sort" onClick={handleOrder}>
+          Sort by date
+        </button>
+      </div>
       <ul className="articleList">
         {articles.map(article => {
           return (
