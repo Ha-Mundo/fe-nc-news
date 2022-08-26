@@ -63,7 +63,7 @@ const AddComment = ({ comments, setComments }) => {
         <p>Please login to leave a comment</p>
       )}
       <p id="success" className="hidden">
-        You successful post a comment!
+        You successfully posted a comment!
       </p>
     </div>
   );
