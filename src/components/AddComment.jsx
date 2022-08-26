@@ -28,8 +28,8 @@ const AddComment = ({ comments, setComments }) => {
     const successMsg = document.getElementById("success");
     successMsg.classList.toggle("hidden");
 
-    postComment(article_id, { username: user.username, body: comment }).then(
-      res => {
+    postComment(article_id, { username: user.username, body: comment })
+      .then(res => {
         const newComments = comments.map(comment => {
           return comment;
         });
@@ -37,8 +37,10 @@ const AddComment = ({ comments, setComments }) => {
         setComments(newComments);
         setComment("");
         console.log(res);
-      }
-    );
+      })
+      .catch(err => {
+        alert("Impossible to post... try again!");
+      });
   };
 
   return (
