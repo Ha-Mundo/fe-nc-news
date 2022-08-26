@@ -1,7 +1,7 @@
-import { getArticles } from "../utils/Api";
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 
+import { getArticles } from "../utils/Api";
 import SortBy from "./SortBy";
 
 import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
