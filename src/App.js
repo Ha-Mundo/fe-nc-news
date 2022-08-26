@@ -13,7 +13,7 @@ import ArticleList from "./components/ArticleList";
 import ArticleById from "./components/ArticleById";
 
 function App() {
-  const [user, setUser] = useState({ username: "weegembump" });
+  const [user, setUser] = useState({ username: "tickle122" });
 
   useEffect(() => {
     getUsers().then(res => {
