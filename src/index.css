@@ -17,6 +17,11 @@ h6 {
   margin: 0.5rem;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+}
+
 li {
   display: inline-block;
   list-style-type: none;
@@ -74,7 +79,8 @@ button:hover {
   margin: 1rem 3rem;
 }
 
-.flex-row {
+.flex-row,
+.header {
   display: flex;
   margin: 0;
   padding: 0;
@@ -84,12 +90,15 @@ button:hover {
 
 .articleCard {
   text-align: left;
-  padding: 1rem;
-  border: 2px solid dodgerblue;
-  border-radius: 0.3rem;
-  display: inline-block;
   width: 25rem;
+  padding: 1rem;
   margin: 1rem;
+  border: 2px solid dodgerblue;
+  border-radius: 0.5rem;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(#000, 0.2);
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
 .articleTopic {
@@ -121,18 +130,6 @@ button:hover {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   text-transform: capitalize;
-}
-
-.articleCard {
-  background: #fff;
-  margin-top: 20px;
-  margin-right: 10px;
-  padding: 20px 20px 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(#000, 0.2);
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: 0.3s ease;
 }
 
 .articleCard:hover {
@@ -171,11 +168,19 @@ button:hover {
 .comment_form {
   display: flex;
 }
-@media only screen and (max-width: 600px) {
-  li {
-    max-width: 0.5rem;
-  }
 
+@media only screen and (max-width: 660px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
   .articles {
     padding: 1rem;
     margin: 1rem;
