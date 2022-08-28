@@ -30,6 +30,7 @@ const ArticleComments = () => {
       })
       .catch(err => {
         console.log(err.response.data);
+        alert("Cannot delete to server...try again!");
       });
   };
 
@@ -53,7 +54,10 @@ const ArticleComments = () => {
                 <button
                   type="button"
                   className="deleteBtn"
-                  onClick={() => onDelete(comment.comment_id)}
+                  onClick={() => {
+                    onDelete(comment.comment_id);
+                    alert("Comment Deleted!");
+                  }}
                 >
                   Delete
                 </button>
