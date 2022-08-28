@@ -46,6 +46,7 @@ button {
 
 button:hover {
   background-color: rgb(49, 105, 208);
+  cursor: pointer;
 }
 
 .error,
@@ -129,12 +130,13 @@ button:hover {
   padding: 20px 20px 10px 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(#000, 0.2);
+  margin-bottom: 10px;
   cursor: pointer;
   transition: 0.3s ease;
-  margin-bottom: 10px;
 }
 
 .articleCard:hover {
+  transform: scale(1.05);
   box-shadow: 0 2px 4px rgba(#000, 0.2), 0 4px 8px rgba(#000, 0.2);
 }
 
@@ -160,7 +162,6 @@ button:hover {
   border: 1px groove black;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(#000, 0.2);
-  cursor: pointer;
 }
 
 .commentAuthor {
