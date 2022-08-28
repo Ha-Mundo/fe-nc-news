@@ -12,7 +12,7 @@ const Header = () => {
         <h1 id="title">Nc-News</h1>
       </Link>
       <Navbar />
-      <span>User: {user.username}</span>
+      <span id="user">User: {user.username}</span>
     </div>
   );
 };
