@@ -8,9 +8,9 @@ import { getUsers } from "./utils/Api";
 import { UserContext } from "./utils/Context";
 
 import Header from "./components/Header";
-import Navbar from "./components/Navbar";
 import ArticleList from "./components/ArticleList";
 import ArticleById from "./components/ArticleById";
+import Footer from "./components/Footer";
 
 function App() {
   const [user, setUser] = useState({ username: "tickle122" });
@@ -26,12 +26,12 @@ function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <BrowserRouter>
           <Header />
-          <Navbar />
           <Routes>
             <Route path="/" element={<ArticleList />} />
             <Route path="/topics/:topic" element={<ArticleList />} />
             <Route path="/articles/:article_id" element={<ArticleById />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </UserContext.Provider>
     </div>
