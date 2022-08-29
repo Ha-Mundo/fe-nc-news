@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 
 import { getArticles } from "../utils/Api";
 import SortBy from "./SortBy";
+import Loader from "./Loader";
 
 import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
 import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
@@ -31,8 +32,8 @@ const ArticleList = () => {
     });
   }, [topic, sortValue, orderValue]);
 
-  if (articles === []) {
-    return <p className="loader">Loading...</p>;
+  if (articles.length === 0) {
+    return <Loader />;
   }
 
   return (

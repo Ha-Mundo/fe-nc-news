@@ -5,6 +5,7 @@ import { UserContext } from "../utils/Context";
 import { getComments, deleteComment } from "../utils/Api";
 
 import AddComment from "./AddComment";
+import Loader from "./Loader";
 
 const ArticleComments = () => {
   const { article_id } = useParams();
@@ -34,8 +35,8 @@ const ArticleComments = () => {
       });
   };
 
-  if (comments === []) {
-    return <p className="loader">Loading...</p>;
+  if (comments.length === 0) {
+    return <Loader />;
   }
 
   return (
