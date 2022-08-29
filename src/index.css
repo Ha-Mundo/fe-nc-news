@@ -54,8 +54,12 @@ button:hover {
   cursor: pointer;
 }
 
+#capitalize {
+  text-transform: capitalize;
+}
+
 #user {
-  sfont-weight: bold;
+  font-weight: bold;
 }
 
 .error,
