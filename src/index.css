@@ -54,7 +54,24 @@ button:hover {
   cursor: pointer;
 }
 
-#capitalize {
+@media (prefers-reduced-motion: no-preference) {
+  #loader {
+    font-size: 25rem;
+    font-weight: lighter;
+    animation: loader-spin infinite 3s linear;
+  }
+}
+
+@keyframes loader-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#capitalize:first-letter {
   text-transform: capitalize;
 }
 
@@ -63,7 +80,8 @@ button:hover {
 }
 
 .error,
-.loader {
+.loading-txt {
+  font-size: 2rem;
   text-align: center;
   font-weight: bold;
   color: cornflowerblue;
