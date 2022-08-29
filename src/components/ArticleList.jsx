@@ -13,6 +13,8 @@ const ArticleList = () => {
   const [orderValue, setOrderValue] = useState();
   const { topic } = useParams();
 
+  console.log(topic);
+
   function handleOrder() {
     return setOrderValue(currentOrder => {
       if (currentOrder === "ASC") {
@@ -35,7 +37,9 @@ const ArticleList = () => {
 
   return (
     <div className="articles">
-      <h2>Articles</h2>
+      <h2 id="capitalize">
+        {topic === undefined ? "All articles" : `${topic} articles`}
+      </h2>
       <div className="flex-row">
         <SortBy sortValue={sortValue} setSortValue={setSortValue} />
         <button id="sort" onClick={handleOrder}>
