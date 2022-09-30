@@ -36,6 +36,7 @@ a:hover {
   color: rgb(18, 95, 173);
 }
 button {
+  padding: 0.13rem;
   background-color: cornflowerblue;
   color: white;
   text-transform: uppercase;
@@ -51,6 +52,7 @@ button:hover {
 .loader {
   text-align: center;
   font-weight: bold;
+  color: cornflowerblue;
 }
 .hidden {
   display: none;
