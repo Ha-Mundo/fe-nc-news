@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 
 import { getArticles } from "../utils/Api";
 import SortBy from "./SortBy";
+import Loader from "./Loader";
 
 import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
 import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
@@ -12,6 +13,8 @@ const ArticleList = () => {
   const [sortValue, setSortValue] = useState("created_at");
   const [orderValue, setOrderValue] = useState();
   const { topic } = useParams();
+
+  console.log(topic);
 
   function handleOrder() {
     return setOrderValue(currentOrder => {
@@ -29,13 +32,15 @@ const ArticleList = () => {
     });
   }, [topic, sortValue, orderValue]);
 
-  if (articles === []) {
-    return <p className="loader">Loading...</p>;
+  if (articles.length === 0) {
+    return <Loader />;
   }
 
   return (
     <div className="articles">
-      <h2>Articles</h2>
+      <h2 id="capitalize">
+        {topic === undefined ? "All articles" : `${topic} articles`}
+      </h2>
       <div className="flex-row">
         <SortBy sortValue={sortValue} setSortValue={setSortValue} />
         <button id="sort" onClick={handleOrder}>

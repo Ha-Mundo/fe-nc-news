@@ -64,7 +64,6 @@ const ArticleById = () => {
                 className="icon"
                 color={disable ? "grey" : "primary"}
               />{" "}
-              {/*  {article.votes} */}
             </IconButton>
             <p>{voteCounter}</p>
             <IconButton>

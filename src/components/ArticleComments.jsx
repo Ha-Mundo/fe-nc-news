@@ -5,6 +5,7 @@ import { UserContext } from "../utils/Context";
 import { getComments, deleteComment } from "../utils/Api";
 
 import AddComment from "./AddComment";
+import Loader from "./Loader";
 
 const ArticleComments = () => {
   const { article_id } = useParams();
@@ -30,11 +31,12 @@ const ArticleComments = () => {
       })
       .catch(err => {
         console.log(err.response.data);
+        alert("Cannot delete to server...try again!");
       });
   };
 
-  if (comments === []) {
-    return <p className="loader">Loading...</p>;
+  if (comments.length === 0) {
+    return <Loader />;
   }
 
   return (
@@ -53,7 +55,10 @@ const ArticleComments = () => {
                 <button
                   type="button"
                   className="deleteBtn"
-                  onClick={() => onDelete(comment.comment_id)}
+                  onClick={() => {
+                    onDelete(comment.comment_id);
+                    alert("Comment Deleted!");
+                  }}
                 >
                   Delete
                 </button>

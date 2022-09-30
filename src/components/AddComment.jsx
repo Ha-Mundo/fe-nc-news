@@ -37,7 +37,7 @@ const AddComment = ({ comments, setComments }) => {
         setComment("");
       })
       .catch(err => {
-        alert("cannot post to server...try again!");
+        alert("Cannot post to server...try again!");
       });
   };
 

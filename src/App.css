@@ -2,37 +2,265 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Customized content scrollbar */
+body::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: antiquewhite;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: cornflowerblue;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+h5,
+h6 {
+  margin: 0.5rem;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: inline-block;
+  list-style-type: none;
+  padding: 0.1rem;
+  margin: 0.1rem;
+  font-weight: bolder;
+}
+
+a {
+  color: dodgerblue;
+  margin: 0.2rem 2.5rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: rgb(18, 95, 173);
+}
+button {
+  padding: 0.13rem;
+  background-color: cornflowerblue;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+}
+
+button:hover {
+  background-color: rgb(49, 105, 208);
+  cursor: pointer;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  /* Spinner Loader */
+  #loader {
+    font-size: 25rem;
+    font-weight: lighter;
+    animation: loader-spin infinite 3s linear;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes loader-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+#capitalize:first-letter {
+  text-transform: capitalize;
+}
+
+#user-icon {
+  font-size: 3rem;
+}
+
+#user {
+  font-weight: bold;
+}
+#sort-filter {
+  margin: 1rem auto;
+}
+#sort,
+#sort-by,
+#filter {
+  font-size: 1.2rem;
+}
+
+.error,
+.loading-txt {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  color: cornflowerblue;
+}
+.hidden {
+  display: none;
+}
+#success {
+  text-align: center;
+  color: royalblue;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.articles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  margin: 1rem 3rem;
+}
+
+.flex-row,
+.header {
+  display: flex;
+  margin: 1rem auto;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem auto;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.articleCard {
+  text-align: left;
+  width: 25rem;
+  padding: 1rem;
+  margin: 1rem;
+  border: 2px solid dodgerblue;
+  border-radius: 0.5rem;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(#000, 0.2);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.articleTopic {
+  text-align: right;
+  background-color: antiquewhite;
+  padding: 0.3rem;
+  border-radius: 50px;
+}
+
+.articleDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.article_card_footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.article_card_footer > p {
+  margin: 0.3rem;
+}
+
+.centerArticle {
+  margin: 1rem;
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  text-transform: capitalize;
+}
+
+.articleCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(#000, 0.2), 0 4px 8px rgba(#000, 0.2);
+}
+
+.articleComments {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.commentList {
+  margin: 0;
+  padding: 0;
+}
+
+.commentCard {
+  color: dodgerblue;
+  max-width: 25rem;
+  background: rgb(253, 250, 250);
+  margin: 1rem;
+  padding: 8px;
+  border: 1px groove black;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(#000, 0.2);
+}
+
+.commentAuthor {
+  text-transform: capitalize;
+}
+
+.comment_form {
+  display: flex;
+}
+.footer {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+@media only screen and (max-width: 660px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .articles {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .articleCard {
+    display: inline-block;
+    max-width: 15rem;
+  }
+
+  .commentCard {
+    display: block;
+    max-width: 15rem;
   }
 }
