@@ -1,7 +1,7 @@
-import { postComment } from "../utils/Api";
 import React, { useState, useContext } from "react";
 import { useParams } from "react-router";
 
+import { postComment } from "../utils/Api";
 import { UserContext } from "../utils/Context";
 
 const AddComment = ({ comments, setComments }) => {
@@ -37,7 +37,7 @@ const AddComment = ({ comments, setComments }) => {
         setComment("");
       })
       .catch(err => {
-        alert("Impossible to post... try again!");
+        alert("cannot post to server...try again!");
       });
   };
 
