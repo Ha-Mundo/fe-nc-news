@@ -16,7 +16,7 @@ As user You can:
 
 - **[nc-news-22](https://nc-news-22.netlify.app/)**
 
-- **[Git repo for API](https://github.com/Ha-Mundo/be-nc-news)**
+- **[API Repository](https://github.com/Ha-Mundo/be-nc-news)**
 
 ---
 
