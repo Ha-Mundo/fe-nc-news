@@ -10,7 +10,7 @@ As user You can:
 - read articles and vote for it.
 - You can also comment on any article, update or even delete your own comment.
 - You can sort article by topics, article date and by author name as well.
-- You can sort order by ascending/descending
+- You can sort by ascending or descending order
 
 ### Links to the app
 
