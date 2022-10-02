@@ -1,6 +1,10 @@
 # NC-News app
 
-This is a simple news feed app where you can see news feed about different topics. The project has a default, logged-in user, **tinkle 122**.
+This project is a demonstration for the use of react, node and axios to create a simple, responsive App.
+The purpose of this project was to consolidate my understanding of making a C.R.U.D application from a front end perspective.
+
+The project has a default, logged-in user, **tinkle 122**.
+
 As user You can:
 
 - read articles and vote for it.
