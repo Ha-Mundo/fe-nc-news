@@ -44,7 +44,7 @@ const ArticleList = () => {
       <div className="flex-row">
         <SortBy sortValue={sortValue} setSortValue={setSortValue} />
         <button id="sort" onClick={handleOrder}>
-          Sort by date
+          Asc-Desc
         </button>
       </div>
       <ul className="articleList">
