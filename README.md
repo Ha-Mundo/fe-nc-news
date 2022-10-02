@@ -1,6 +1,6 @@
 # NC-News app
 
-This project is a demonstration for the use of react, node and axios to create a simple, responsive App.
+This project is a demonstration for the use of **React**, **Node** and **Axios** to create a simple, responsive App.
 The purpose of this project was to consolidate my understanding of making a C.R.U.D application from a front end perspective.
 
 The project has a default, logged-in user, **tinkle 122**.
