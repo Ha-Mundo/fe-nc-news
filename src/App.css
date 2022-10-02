@@ -29,6 +29,9 @@ code {
     monospace;
 }
 
+h2 {
+  color: dodgerblue;
+}
 h5,
 h6 {
   margin: 0.5rem;
@@ -71,6 +74,10 @@ button:hover {
   cursor: pointer;
 }
 
+label {
+  color: dodgerblue;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   /* Spinner Loader */
   #loader {
@@ -107,6 +114,10 @@ button:hover {
 #sort-by,
 #filter {
   font-size: 1.2rem;
+}
+#filter {
+  color: dodgerblue;
+  border-color: dodgerblue;
 }
 
 .error,
@@ -234,7 +245,7 @@ button:hover {
   display: flex;
 }
 .footer {
-  font-size: 1.7rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 @media only screen and (max-width: 660px) {
