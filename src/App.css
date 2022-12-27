@@ -84,6 +84,8 @@ label {
     font-size: 25rem;
     font-weight: lighter;
     animation: loader-spin infinite 3s linear;
+    -webkit-animation: loader-spin infinite 3s linear;
+    -moz-animation: loader-spin infinite 3s linear;
   }
 }
 
@@ -95,7 +97,22 @@ label {
     transform: rotate(360deg);
   }
 }
-
+@-moz-keyframes loader-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 #capitalize:first-letter {
   text-transform: capitalize;
 }
