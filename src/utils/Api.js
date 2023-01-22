@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const newsApi = axios.create({
-  baseURL: "https://be-nc-news.up.railway.app/api",
+  baseURL: "https://be-nc-news-api.cyclic.app/api",
 });
 
 export const getTopics = () => {
