@@ -5,11 +5,15 @@ const Loader = () => {
   return (
     <div className="flex-col">
       <AutorenewTwoToneIcon
-        id="loader"
         fontSize="large"
-        className="icon"
         color="primary"
-      />{" "}
+        sx={{
+          animation: "loader-spin 1.5s linear infinite",
+          transformOrigin: "center",
+          transformBox: "fill-box",
+          display: "inline-block",
+        }}
+      />
       <p className="loading-txt">Loading...</p>
     </div>
   );
