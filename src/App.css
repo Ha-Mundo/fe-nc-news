@@ -61,7 +61,7 @@ a:hover {
   color: rgb(18, 95, 173);
 }
 button {
-  padding: 0.13rem;
+  padding: 0.37rem 0.5rem;
   background-color: cornflowerblue;
   color: white;
   text-transform: uppercase;
@@ -78,75 +78,32 @@ label {
   color: dodgerblue;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  /* Spinner Loader */
-  #loader {
-    font-size: 25rem;
-    font-weight: lighter;
-    animation: loader-spin infinite 3s linear;
-    -webkit-animation: loader-spin infinite 3s linear;
-    -moz-animation: loader-spin infinite 3s linear;
-  }
-}
+#filter { padding: 0.3rem 0.5rem; }
 
-@keyframes loader-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-moz-keyframes loader-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes loader-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-#capitalize:first-letter {
-  text-transform: capitalize;
-}
-
-#user-icon {
-  font-size: 3rem;
-}
-
-#user {
-  font-weight: bold;
-}
-#sort-filter {
-  margin: 1rem auto;
-}
-#sort,
-#sort-by,
-#filter {
-  font-size: 1.2rem;
-}
-#filter {
-  color: dodgerblue;
-  border-color: dodgerblue;
-}
-
-.error,
+/* Loading text fade animation (smooth blink) */
 .loading-txt {
   font-size: 2rem;
   text-align: center;
   font-weight: bold;
   color: cornflowerblue;
+  animation: blink 1s ease-in-out infinite;
 }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* Keyframes for loader icon (used via sx prop) */
+@keyframes loader-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .hidden {
   display: none;
 }
+
 #success {
   text-align: center;
   color: royalblue;
@@ -181,6 +138,12 @@ label {
   justify-content: center;
 }
 
+/* Loader responsive: scale icon based on screen width */
+.flex-col > svg {
+  width: min(10rem, 30vw);
+  height: min(10rem, 30vw);
+}
+
 .articleCard {
   text-align: left;
   width: 25rem;
@@ -195,7 +158,7 @@ label {
 }
 
 .articleTopic {
-  text-align: right;
+  text-align: left;
   background-color: antiquewhite;
   padding: 0.3rem;
   border-radius: 50px;
@@ -265,6 +228,7 @@ label {
   font-size: 1rem;
   font-weight: bold;
 }
+
 @media only screen and (max-width: 660px) {
   .header {
     display: flex;
