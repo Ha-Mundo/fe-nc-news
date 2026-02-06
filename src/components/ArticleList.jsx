@@ -41,7 +41,7 @@ const ArticleList = () => {
       <h2 id="capitalize">
         {topic === undefined ? "All articles" : `${topic} articles`}
       </h2>
-      <div className="flex-row">
+      <div className="sort_by">
         <SortBy sortValue={sortValue} setSortValue={setSortValue} />
         <button id="sort" onClick={handleOrder}>
           Asc-Desc
