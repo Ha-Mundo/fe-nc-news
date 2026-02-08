@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../utils/Context";
 import Navbar from "./Navbar";
@@ -16,14 +16,20 @@ const Header = () => {
       </Link>
       <Navbar />
       <span id="user">
-        <IconButton>
+        <IconButton size="large">
           <AccountCircleTwoToneIcon
-            fontSize="large"
+            sx={{
+              fontSize: {
+                xs: 32,
+                sm: 40,
+                md: 48,
+              },
+            }}
             className="icon"
             color="primary"
           />
         </IconButton>
-        {user.username}
+        {/* {user.username} */}
       </span>
     </div>
   );
