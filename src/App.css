@@ -51,7 +51,7 @@ a:hover {
 }
 
 button {
-  padding: 0.37rem 0.5rem;
+  padding: 0.43rem 0.5rem;
   background-color: cornflowerblue;
   color: white;
   text-transform: uppercase;
@@ -65,8 +65,9 @@ button:hover {
   cursor: pointer;
 }
 
-label {
+label, option {
   color: dodgerblue;
+  font-weight: bold;
 }
 
 nav ul li {
@@ -92,13 +93,19 @@ nav ul li {
   justify-content: center;
 }
 
-/* #user > li {
-  color: cornflowerblue;
-  font-size: larger;
-  font-weight: bolder;
-} */
+#filter { 
+padding: 0.3rem 0.5rem; 
+color: cornflowerblue;
+font-weight: bold;
+border: 2px solid cornflowerblue; 
+outline: none;      
+background-size: 0.6rem;          /* Arrow size */
+transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
 
-#filter { padding: 0.3rem 0.5rem; }
+#filter:focus {
+  border-color: #6495ed; 
+}
 
 /* --- Layout Containers --- */
 .articles, .articleComments, .singleArticle {
@@ -243,5 +250,4 @@ nav ul li {
   }
 
   .header, .flex-row { gap: 0.1rem; }
-  /* #user, li { font-size: medium; } */
 }
