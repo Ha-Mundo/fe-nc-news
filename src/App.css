@@ -8,19 +8,21 @@
   box-sizing: border-box; /* Prevents horizontal scrollbars caused by padding/borders */
 }
 
-body {
+/* html and body must take up the full window */
+html, body {
+  height: 100%;
   margin: 0;
-  overflow-x: hidden; /* Safety measure against horizontal overflow */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #fdfafb;
 }
 
-.App {
-  text-align: center;
+body {
+  background-color: #fdfafb;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  overflow-x: hidden; /* Safety measure against horizontal overflow */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
 
 /* Custom Scrollbar */
 body::-webkit-scrollbar { width: 0.5rem; }
@@ -77,6 +79,22 @@ nav ul li {
   cursor: pointer;
 }
 
+.App {
+  text-align: center;
+}
+
+/* main container as a flex column */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* at least the full window height */
+}
+
+/* main grows to fill available space */
+.main-content {
+  flex: 1;
+}
+
 #title {
   font-size: var(--title-size);
   font-weight: 700;
@@ -91,6 +109,13 @@ nav ul li {
   align-items: center;
   gap: 2rem;
   justify-content: center;
+}
+
+.footer {
+  font-weight: 700;
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 1rem 0;
 }
 
 #filter { 
@@ -251,3 +276,5 @@ transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   .header, .flex-row { gap: 0.1rem; }
 }
+
+
