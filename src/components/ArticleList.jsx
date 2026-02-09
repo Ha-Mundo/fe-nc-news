@@ -5,6 +5,9 @@ import { getArticles } from "../utils/Api";
 import SortBy from "./SortBy";
 import Loader from "./Loader";
 
+import { IconButton, Tooltip } from "@mui/material";
+import ArrowUpwardTwoToneIcon from "@mui/icons-material/ArrowUpwardTwoTone";
+import ArrowDownwardTwoToneIcon from "@mui/icons-material/ArrowDownwardTwoTone";
 import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
 import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
 
@@ -12,15 +15,17 @@ const ArticleList = () => {
   const [articles, setArticles] = useState([]);
   const [sortValue, setSortValue] = useState("created_at");
 
-  // Default order: newest articles first
+  // Default order: newest first
   const [orderValue, setOrderValue] = useState("DESC");
 
   const { topic } = useParams();
 
-  function handleOrder() {
-    setOrderValue(prevOrder => (prevOrder === "ASC" ? "DESC" : "ASC"));
-  }
+  // Toggle ascending/descending order
+  const handleOrder = () => {
+    setOrderValue(prev => (prev === "ASC" ? "DESC" : "ASC"));
+  };
 
+  // Fetch articles when topic, sortValue, or orderValue changes
   useEffect(() => {
     getArticles(topic, sortValue, orderValue).then(res => {
       setArticles(res);
@@ -40,9 +45,19 @@ const ArticleList = () => {
       <div className="sort_by">
         <SortBy sortValue={sortValue} setSortValue={setSortValue} />
 
-        <button id="sort" onClick={handleOrder}>
-          {orderValue === "ASC" ? "↓ Newest first" : "↑ Oldest first"}
-        </button>
+        <Tooltip
+          title={orderValue === "ASC" ? "Sort by newest first" : "Sort by oldest first"}
+          arrow
+           placement="top"
+          componentsProps={{
+            tooltip: { sx: { fontSize: "0.7rem", fontWeight: "bold", backgroundColor: "cornflowerblue" } },
+            arrow: { sx: { color: "cornflowerblue" } },
+          }}
+        >
+          <IconButton onClick={handleOrder} color="primary" aria-label="toggle sort order">
+            {orderValue === "ASC" ? <ArrowDownwardTwoToneIcon /> : <ArrowUpwardTwoToneIcon />}
+          </IconButton>
+        </Tooltip>
       </div>
 
       <ul className="articleList">
@@ -62,19 +77,11 @@ const ArticleList = () => {
 
             <div className="article_card_footer">
               <p>
-                <ThumbUpTwoToneIcon
-                  fontSize="large"
-                  className="icon"
-                  color="primary"
-                />{" "}
+                <ThumbUpTwoToneIcon fontSize="large" className="icon" color="primary" />{" "}
                 {article.votes}
               </p>
               <p>
-                <CommentTwoToneIcon
-                  fontSize="large"
-                  className="icon"
-                  color="primary"
-                />{" "}
+                <CommentTwoToneIcon fontSize="large" className="icon" color="primary" />{" "}
                 {article.comment_count}
               </p>
             </div>
