@@ -7,9 +7,6 @@ import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 const UserIcon = ({ user }) => {
   const [open, setOpen] = useState(false);
 
-  // Guard clause: if no user no icon is shows
-  if (!user) return null;
-
   return (
     <span id="user">
       <ClickAwayListener onClickAway={() => setOpen(false)}>
