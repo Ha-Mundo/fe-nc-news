@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <Link to={"/"}>
-        <h1 id="title">Nc-News-2022</h1>
+        <h2>Nc-News-2022</h2>
       </Link>
     </div>
   );
