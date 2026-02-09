@@ -11,19 +11,14 @@ import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
   const [sortValue, setSortValue] = useState("created_at");
-  const [orderValue, setOrderValue] = useState();
+
+  // Default order: newest articles first
+  const [orderValue, setOrderValue] = useState("DESC");
+
   const { topic } = useParams();
 
-  console.log(topic);
-
   function handleOrder() {
-    return setOrderValue(currentOrder => {
-      if (currentOrder === "ASC") {
-        return "DESC";
-      } else {
-        return "ASC";
-      }
-    });
+    setOrderValue(prevOrder => (prevOrder === "ASC" ? "DESC" : "ASC"));
   }
 
   useEffect(() => {
@@ -41,48 +36,50 @@ const ArticleList = () => {
       <h2 id="capitalize">
         {topic === undefined ? "All articles" : `${topic} articles`}
       </h2>
+
       <div className="sort_by">
         <SortBy sortValue={sortValue} setSortValue={setSortValue} />
+
         <button id="sort" onClick={handleOrder}>
-          Asc-Desc
+          {orderValue === "ASC" ? "↓ Newest first" : "↑ Oldest first"}
         </button>
       </div>
-      <ul className="articleList">
-        {articles.map(article => {
-          return (
-            <Link
-              to={`/articles/${article.article_id}`}
-              key={article.article_id}
-              className="articleCard"
-            >
-              <h4 className="articleTopic"> {article.topic} </h4>
-              <h3 className="articleTitle"> {article.title}</h3>
-              <div className="articleDetails">
-                <h5>Author: {article.author}</h5>
-                <h6>Date: {article.created_at.split("T")[0]} </h6>
-              </div>
 
-              <div className="article_card_footer">
-                <p>
-                  <ThumbUpTwoToneIcon
-                    fontSize="large"
-                    className="icon"
-                    color="primary"
-                  />{" "}
-                  {article.votes}
-                </p>
-                <p>
-                  <CommentTwoToneIcon
-                    fontSize="large"
-                    className="icon"
-                    color="primary"
-                  />{" "}
-                  {article.comment_count}
-                </p>
-              </div>
-            </Link>
-          );
-        })}
+      <ul className="articleList">
+        {articles.map(article => (
+          <Link
+            to={`/articles/${article.article_id}`}
+            key={article.article_id}
+            className="articleCard"
+          >
+            <h4 className="articleTopic">{article.topic}</h4>
+            <h3 className="articleTitle">{article.title}</h3>
+
+            <div className="articleDetails">
+              <h5>Author: {article.author}</h5>
+              <h6>Date: {article.created_at.split("T")[0]}</h6>
+            </div>
+
+            <div className="article_card_footer">
+              <p>
+                <ThumbUpTwoToneIcon
+                  fontSize="large"
+                  className="icon"
+                  color="primary"
+                />{" "}
+                {article.votes}
+              </p>
+              <p>
+                <CommentTwoToneIcon
+                  fontSize="large"
+                  className="icon"
+                  color="primary"
+                />{" "}
+                {article.comment_count}
+              </p>
+            </div>
+          </Link>
+        ))}
       </ul>
     </div>
   );
