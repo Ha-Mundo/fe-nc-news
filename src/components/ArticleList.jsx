@@ -16,7 +16,7 @@ const ArticleList = () => {
   const [orderValue, setOrderValue] = useState("DESC");
   const { topic } = useParams();
 
-  // Tooltip Message Mapping
+  // Mapping for dynamic tooltip messages based on sort and order
   const tooltipMessages = {
     created_at: {
       ASC: "sorting by oldest first",
@@ -46,6 +46,12 @@ const ArticleList = () => {
     });
   }, [topic, sortValue, orderValue]);
 
+  // Helper function to format date to dd/mm/yyyy
+  const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-GB', options);
+  };
+
   if (articles.length === 0) {
     return <Loader />;
   }
@@ -66,7 +72,7 @@ const ArticleList = () => {
           componentsProps={{
             tooltip: {
               sx: {
-                fontSize: "0.9rem",
+                fontSize: "0.7rem",
                 fontWeight: "bold",
                 backgroundColor: "cornflowerblue",
               },
@@ -81,6 +87,7 @@ const ArticleList = () => {
             color="primary"
             aria-label="toggle sort order"
           >
+            {/* DESC = Arrow Down | ASC = Arrow Up */}
             {orderValue === "DESC" ? (
               <ArrowDownwardTwoToneIcon />
             ) : (
@@ -102,7 +109,8 @@ const ArticleList = () => {
 
             <div className="articleDetails">
               <h5>Author: {article.author}</h5>
-              <h6>Date: {article.created_at.split("T")[0]}</h6>
+              {/* Displaying formatted date */}
+              <h6>Date: {formatDate(article.created_at)}</h6>
             </div>
 
             <div className="article_card_footer">
