@@ -16,7 +16,7 @@ const SortBy = ({ sortValue, setSortValue }) => {
       >
         <option value="created_at">Date</option>
         <option value="author">Author</option>
-        <option value="votes">Most Popular</option>
+        <option value="votes">Popularity</option>
         <option value="comment_count">Number of Comments</option>
       </select>
     </div>
