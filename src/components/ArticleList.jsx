@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { getArticles } from "../utils/Api";
 import SortBy from "./SortBy";
 import Loader from "./Loader";
+import useArticles from "../hooks/useArticles";
 
 import { IconButton, Tooltip } from "@mui/material";
 import ArrowUpwardTwoToneIcon from "@mui/icons-material/ArrowUpwardTwoTone";
@@ -11,13 +11,15 @@ import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
 import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
 
 const ArticleList = () => {
-  const [articles, setArticles] = useState([]);
-  const [sortValue, setSortValue] = useState("created_at");
-  const [orderValue, setOrderValue] = useState("DESC");
-  const [isInitialLoading, setIsInitialLoading] = useState(true); 
-  // Used to show the loader ONLY on first load or topic change
-
   const { topic } = useParams();
+  const {
+    articles,
+    sortValue,
+    setSortValue,
+    orderValue,
+    toggleOrder,
+    isInitialLoading,
+  } = useArticles(topic);
 
   const tooltipMessages = {
     created_at: {
@@ -38,27 +40,6 @@ const ArticleList = () => {
     },
   };
 
-  const handleOrder = () => {
-    setOrderValue((prev) => (prev === "ASC" ? "DESC" : "ASC"));
-  };
-
-  useEffect(() => {
-    // Fetch articles whenever topic, sort or order changes
-    getArticles(topic, sortValue, orderValue).then((res) => {
-      setArticles(res);
-
-      // Loader is disabled after the first successful fetch
-      if (isInitialLoading) {
-        setIsInitialLoading(false);
-      }
-    });
-  }, [topic, sortValue, orderValue, isInitialLoading]);
-
-  // Reset loader ONLY when topic changes
-  useEffect(() => {
-    setIsInitialLoading(true);
-  }, [topic]);
-
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-GB", {
       day: "2-digit",
@@ -67,10 +48,7 @@ const ArticleList = () => {
     });
   };
 
-  // Loader is shown only on first load or topic change
-  if (isInitialLoading) {
-    return <Loader />;
-  }
+  if (isInitialLoading) return <Loader />;
 
   return (
     <div className="articles">
@@ -99,11 +77,10 @@ const ArticleList = () => {
           }}
         >
           <IconButton
-            onClick={handleOrder}
+            onClick={toggleOrder}
             color="primary"
             aria-label="toggle sort order"
           >
-            {/* DESC = Arrow Down | ASC = Arrow Up */}
             {orderValue === "DESC" ? (
               <ArrowDownwardTwoToneIcon />
             ) : (
