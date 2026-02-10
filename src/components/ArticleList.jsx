@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-
 import { getArticles } from "../utils/Api";
 import SortBy from "./SortBy";
 import Loader from "./Loader";
@@ -14,20 +13,35 @@ import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
   const [sortValue, setSortValue] = useState("created_at");
-
-  // Default order: newest first
   const [orderValue, setOrderValue] = useState("DESC");
-
   const { topic } = useParams();
 
-  // Toggle ascending/descending order
-  const handleOrder = () => {
-    setOrderValue(prev => (prev === "ASC" ? "DESC" : "ASC"));
+  // Tooltip Message Mapping
+  const tooltipMessages = {
+    created_at: {
+      ASC: "sorting by oldest first",
+      DESC: "sorting by newest first",
+    },
+    author: {
+      ASC: "sorting alphabetical [A-Z]",
+      DESC: "sorting alphabetical [Z-A]",
+    },
+    votes: {
+      ASC: "sorting by lowest popularity",
+      DESC: "sorting by highest popularity",
+    },
+    comment_count: {
+      ASC: "sorting by least comments",
+      DESC: "sorting by most comments",
+    },
   };
 
-  // Fetch articles when topic, sortValue, or orderValue changes
+  const handleOrder = () => {
+    setOrderValue((prev) => (prev === "ASC" ? "DESC" : "ASC"));
+  };
+
   useEffect(() => {
-    getArticles(topic, sortValue, orderValue).then(res => {
+    getArticles(topic, sortValue, orderValue).then((res) => {
       setArticles(res);
     });
   }, [topic, sortValue, orderValue]);
@@ -46,22 +60,38 @@ const ArticleList = () => {
         <SortBy sortValue={sortValue} setSortValue={setSortValue} />
 
         <Tooltip
-          title={orderValue === "ASC" ? "Sort by newest first" : "Sort by oldest first"}
+          title={tooltipMessages[sortValue]?.[orderValue] || "Toggle order"}
           arrow
-           placement="top"
+          placement="top"
           componentsProps={{
-            tooltip: { sx: { fontSize: "0.7rem", fontWeight: "bold", backgroundColor: "cornflowerblue" } },
-            arrow: { sx: { color: "cornflowerblue" } },
+            tooltip: {
+              sx: {
+                fontSize: "0.9rem",
+                fontWeight: "bold",
+                backgroundColor: "cornflowerblue",
+              },
+            },
+            arrow: {
+              sx: { color: "cornflowerblue" },
+            },
           }}
         >
-          <IconButton onClick={handleOrder} color="primary" aria-label="toggle sort order">
-            {orderValue === "ASC" ? <ArrowDownwardTwoToneIcon /> : <ArrowUpwardTwoToneIcon />}
+          <IconButton
+            onClick={handleOrder}
+            color="primary"
+            aria-label="toggle sort order"
+          >
+            {orderValue === "DESC" ? (
+              <ArrowDownwardTwoToneIcon />
+            ) : (
+              <ArrowUpwardTwoToneIcon />
+            )}
           </IconButton>
         </Tooltip>
       </div>
 
       <ul className="articleList">
-        {articles.map(article => (
+        {articles.map((article) => (
           <Link
             to={`/articles/${article.article_id}`}
             key={article.article_id}
@@ -77,11 +107,19 @@ const ArticleList = () => {
 
             <div className="article_card_footer">
               <p>
-                <ThumbUpTwoToneIcon fontSize="large" className="icon" color="primary" />{" "}
+                <ThumbUpTwoToneIcon
+                  fontSize="large"
+                  className="icon"
+                  color="primary"
+                />{" "}
                 {article.votes}
               </p>
               <p>
-                <CommentTwoToneIcon fontSize="large" className="icon" color="primary" />{" "}
+                <CommentTwoToneIcon
+                  fontSize="large"
+                  className="icon"
+                  color="primary"
+                />{" "}
                 {article.comment_count}
               </p>
             </div>
