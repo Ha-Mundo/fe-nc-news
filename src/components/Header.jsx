@@ -13,7 +13,7 @@ const Header = () => {
         <h1 id="title">Nc-News</h1>
       </Link>
 
-      <Navbar />
+      {!isLoading && !error && user && <Navbar />}
 
       {!isLoading && !error && user && <UserIcon user={user} />}
     </div>
