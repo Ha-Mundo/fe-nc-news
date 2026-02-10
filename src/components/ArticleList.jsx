@@ -14,9 +14,11 @@ const ArticleList = () => {
   const [articles, setArticles] = useState([]);
   const [sortValue, setSortValue] = useState("created_at");
   const [orderValue, setOrderValue] = useState("DESC");
+  const [isInitialLoading, setIsInitialLoading] = useState(true); 
+  // Used to show the loader ONLY on first load or topic change
+
   const { topic } = useParams();
 
-  // Mapping for dynamic tooltip messages based on sort and order
   const tooltipMessages = {
     created_at: {
       ASC: "sorting by oldest first",
@@ -41,18 +43,32 @@ const ArticleList = () => {
   };
 
   useEffect(() => {
+    // Fetch articles whenever topic, sort or order changes
     getArticles(topic, sortValue, orderValue).then((res) => {
       setArticles(res);
-    });
-  }, [topic, sortValue, orderValue]);
 
-  // Helper function to format date to dd/mm/yyyy
+      // Loader is disabled after the first successful fetch
+      if (isInitialLoading) {
+        setIsInitialLoading(false);
+      }
+    });
+  }, [topic, sortValue, orderValue, isInitialLoading]);
+
+  // Reset loader ONLY when topic changes
+  useEffect(() => {
+    setIsInitialLoading(true);
+  }, [topic]);
+
   const formatDate = (dateString) => {
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-GB', options);
+    return new Date(dateString).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
   };
 
-  if (articles.length === 0) {
+  // Loader is shown only on first load or topic change
+  if (isInitialLoading) {
     return <Loader />;
   }
 
@@ -109,7 +125,6 @@ const ArticleList = () => {
 
             <div className="articleDetails">
               <h5>Author: {article.author}</h5>
-              {/* Displaying formatted date */}
               <h6>Date: {formatDate(article.created_at)}</h6>
             </div>
 
