@@ -53,7 +53,6 @@ const ArticleById = () => {
   if (!article) {
     return <>
           <Loader/>
-          <p className="loading-txt">Loading...</p>;
         </>
   }
 
