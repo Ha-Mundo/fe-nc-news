@@ -1,26 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-
 import { UserContext } from "../utils/Context";
 import { getComments, deleteComment } from "../utils/Api";
-
 import AddComment from "./AddComment";
 import Loader from "./Loader";
+import toast from "react-hot-toast";
 
 const ArticleComments = () => {
   const { article_id } = useParams();
-
-  // Comments state
   const [comments, setComments] = useState([]);
-
-  // Loading state to distinguish between "fetching" and "empty list"
   const [isLoading, setIsLoading] = useState(true);
-
   const { user } = useContext(UserContext);
 
   useEffect(() => {
     setIsLoading(true);
-
     getComments(article_id)
       .then((res) => {
         setComments(res);
@@ -32,45 +25,44 @@ const ArticleComments = () => {
       });
   }, [article_id]);
 
-  // Show loader while fetching data
-  if (isLoading) return <Loader />;
-
-  // Show message when comments are empty
-  if (!isLoading && comments.length === 0) {
-    return <p className="loading-txt">No comments yet.</p>;
-  }
-
-  // Delete comment handler
   const onDelete = (comment_id) => {
-    deleteComment(comment_id)
-      .then(() => {
-        const updatedComments = comments.filter(
-          (comment) => comment.comment_id !== comment_id
-        );
-        setComments(updatedComments);
+    // 1. Keep a backup of current comments for potential rollback
+    const previousComments = [...comments];
 
-        // Alert after successful delete
-        alert("Comment deleted successfully!");
-      })
-      .catch((err) => {
-        console.error(err.response.data);
-        alert("Cannot delete from server... try again!");
-      });
+    // 2. Optimistic Update: Remove from UI immediately
+    setComments((prev) => prev.filter((c) => c.comment_id !== comment_id));
+    toast.success("Comment removed");
+
+    // 3. Perform actual delete on server
+    deleteComment(comment_id).catch((err) => {
+      console.error("Delete error:", err);
+      // 4. Rollback: If server fails, restore the previous state
+      setComments(previousComments);
+      toast.error("Failed to delete. Restoring comment...");
+    });
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="articleComments">
-      <AddComment comments={comments} setComments={setComments} />
-      <h3>Article Comments</h3>
-      <ul className="commentList">
-        {comments.map((comment) => {
-          return (
+      <AddComment setComments={setComments} />
+      
+      <h3>Comments ({comments.length})</h3>
+      
+      {comments.length === 0 ? (
+        <p className="empty-msg">No comments yet.</p>
+      ) : (
+        <ul className="commentList">
+          {comments.map((comment) => (
             <li key={comment.comment_id} className="commentCard">
-              <h4 className="commentAuthor">{comment.author}</h4>
-              <h6>{comment.created_at.split("T")[0]}</h6>
+              <div className="comment-meta">
+                <strong>{comment.author}</strong>
+                <span>{new Date(comment.created_at).toLocaleDateString()}</span>
+              </div>
               <p>{comment.body}</p>
 
-              {user.username === comment.author ? (
+              {user?.username === comment.author && (
                 <button
                   type="button"
                   className="deleteBtn"
@@ -78,11 +70,11 @@ const ArticleComments = () => {
                 >
                   Delete
                 </button>
-              ) : null}
+              )}
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
