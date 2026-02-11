@@ -1,14 +1,13 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SortBy from "./SortBy";
 import Loader from "./Loader";
+import ArticleCard from "./ArticleCard"; 
 import useArticles from "../hooks/useArticles";
 
 import { IconButton, Tooltip } from "@mui/material";
 import ArrowUpwardTwoToneIcon from "@mui/icons-material/ArrowUpwardTwoTone";
 import ArrowDownwardTwoToneIcon from "@mui/icons-material/ArrowDownwardTwoTone";
-import CommentTwoToneIcon from "@mui/icons-material/CommentTwoTone";
-import ThumbUpTwoToneIcon from "@mui/icons-material/ThumbUpTwoTone";
 
 const ArticleList = () => {
   const { topic } = useParams();
@@ -18,17 +17,19 @@ const ArticleList = () => {
     setSortValue,
     orderValue,
     toggleOrder,
-    isInitialLoading,
+    isFirstLoad,
+    error,
   } = useArticles(topic);
 
+  // Tooltip messages: when orderValue is DESC, Author shows [A-Z]
   const tooltipMessages = {
     created_at: {
       ASC: "sorting by oldest first",
       DESC: "sorting by newest first",
     },
     author: {
-      ASC: "sorting alphabetical [A-Z]",
-      DESC: "sorting alphabetical [Z-A]",
+      ASC: "sorting alphabetical [Z-A]",
+      DESC: "sorting alphabetical [A-Z]",
     },
     votes: {
       ASC: "sorting by lowest popularity",
@@ -40,15 +41,7 @@ const ArticleList = () => {
     },
   };
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-  };
-
-  if (isInitialLoading) return <Loader />;
+  if (isFirstLoad) return <Loader />;
 
   return (
     <div className="articles">
@@ -60,27 +53,21 @@ const ArticleList = () => {
         <SortBy sortValue={sortValue} setSortValue={setSortValue} />
 
         <Tooltip
-          title={tooltipMessages[sortValue]?.[orderValue] || "Toggle order"}
+          title={tooltipMessages[sortValue]?.[orderValue] || "Change order"}
           arrow
           placement="top"
           componentsProps={{
             tooltip: {
               sx: {
-                fontSize: "0.7rem",
+                fontSize: "0.9rem",
                 fontWeight: "bold",
                 backgroundColor: "cornflowerblue",
               },
             },
-            arrow: {
-              sx: { color: "cornflowerblue" },
-            },
+            arrow: { sx: { color: "cornflowerblue" } },
           }}
         >
-          <IconButton
-            onClick={toggleOrder}
-            color="primary"
-            aria-label="toggle sort order"
-          >
+          <IconButton onClick={toggleOrder} color="primary" aria-label="toggle sort order">
             {orderValue === "DESC" ? (
               <ArrowDownwardTwoToneIcon />
             ) : (
@@ -90,41 +77,16 @@ const ArticleList = () => {
         </Tooltip>
       </div>
 
+      {error && <p className="error_message">{error}</p>}
+
       <ul className="articleList">
-        {articles.map((article) => (
-          <Link
-            to={`/articles/${article.article_id}`}
-            key={article.article_id}
-            className="articleCard"
-          >
-            <h4 className="articleTopic">{article.topic}</h4>
-            <h3 className="articleTitle">{article.title}</h3>
-
-            <div className="articleDetails">
-              <h5>Author: {article.author}</h5>
-              <h6>Date: {formatDate(article.created_at)}</h6>
-            </div>
-
-            <div className="article_card_footer">
-              <p>
-                <ThumbUpTwoToneIcon
-                  fontSize="large"
-                  className="icon"
-                  color="primary"
-                />{" "}
-                {article.votes}
-              </p>
-              <p>
-                <CommentTwoToneIcon
-                  fontSize="large"
-                  className="icon"
-                  color="primary"
-                />{" "}
-                {article.comment_count}
-              </p>
-            </div>
-          </Link>
-        ))}
+        {articles.length === 0 && !error ? (
+          <p>No articles found for this category.</p>
+        ) : (
+          articles.map((article) => (
+            <ArticleCard key={article.article_id} article={article} />
+          ))
+        )}
       </ul>
     </div>
   );
