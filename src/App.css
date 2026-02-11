@@ -265,6 +265,16 @@ transition: border-color 0.2s ease, box-shadow 0.2s ease;
   font-size: 1.5rem;
 }
 
+.no_articles{
+  color: cornflowerblue;
+  text-align: 'center'; 
+}
+
+.error_message {
+  color: royalblue;
+  text-align: 'center'; 
+}
+
 /* --- Responsive --- */
 @media only screen and (max-width: 600px) {
   nav ul li { font-weight: bold; }
