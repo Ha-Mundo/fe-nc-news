@@ -4,7 +4,7 @@ import { postComment } from "../utils/Api";
 import { UserContext } from "../utils/Context";
 import toast from "react-hot-toast";
 
-const AddComment = ({ setComments }) => {
+const AddComment = ({ setComments, setCommentCount }) => {
   const [commentBody, setCommentBody] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useContext(UserContext);
@@ -12,32 +12,26 @@ const AddComment = ({ setComments }) => {
 
   const handleComment = (event) => {
     event.preventDefault();
-    
-    // Prevent empty comments
-    if (!commentBody.trim()) {
-      toast.error("Comment cannot be empty");
-      return;
-    }
+    if (!commentBody.trim()) return toast.error("Empty comment!");
 
     setIsSubmitting(true);
     const loadingToast = toast.loading("Posting...");
 
     postComment(article_id, { username: user.username, body: commentBody })
       .then((res) => {
-        /* Using functional update (prev) to ensure we have the latest state.
-           We add the new comment (res[0]) to the top of the list.
-        */
-        setComments((prevComments) => [res[0], ...prevComments]);
-        setCommentBody(""); // Clear the textarea
-        toast.success("Comment added!", { id: loadingToast });
+        // Update local comment list (ArticleComments state)
+        setComments((prev) => [res[0], ...prev]);
+        
+        // Update dynamic counter in the main page (ArticleById state)
+        setCommentCount((curr) => curr + 1);
+        
+        setCommentBody("");
+        toast.success("Posted!", { id: loadingToast });
       })
-      .catch((err) => {
-        console.error("Post error:", err);
-        toast.error("Could not post comment. Try again.", { id: loadingToast });
+      .catch(() => {
+        toast.error("Failed to post.", { id: loadingToast });
       })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -46,23 +40,18 @@ const AddComment = ({ setComments }) => {
         <form onSubmit={handleComment} className="comment_form">
           <textarea
             required
-            disabled={isSubmitting}
+            disabled={isSubmitting} // Disable during API call
             onChange={(e) => setCommentBody(e.target.value)}
-            name="body"
             value={commentBody}
-            placeholder="Write a comment..."
+            placeholder="Add a comment..."
             className="post_comment"
           />
-          <button 
-            type="submit" 
-            className="submit_comment" 
-            disabled={isSubmitting || !commentBody.trim()}
-          >
-            {isSubmitting ? "Sending..." : "Post Comment"}
+          <button type="submit" disabled={isSubmitting || !commentBody.trim()}>
+            {isSubmitting ? "..." : "Post"}
           </button>
         </form>
       ) : (
-        <p className="login-warning">Log in to join the conversation.</p>
+        <p>Log in to comment.</p>
       )}
     </div>
   );
