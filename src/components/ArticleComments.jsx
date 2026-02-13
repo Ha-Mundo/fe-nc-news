@@ -23,19 +23,18 @@ const ArticleComments = ({ setCommentCount }) => {
   }, [article_id]);
 
   const onDelete = (comment_id) => {
-    // Save current state for potential rollback
     const previousComments = [...comments];
 
-    // Optimistic Update: Update local list and parent counter immediately
+    // Optimistic UI: remove comment and decrement parent counter immediately
     setComments((prev) => prev.filter((c) => c.comment_id !== comment_id));
     setCommentCount((curr) => curr - 1);
     toast.success("Comment deleted");
 
-    deleteComment(comment_id).catch((err) => {
-      // Rollback: Revert UI if server fails
+    deleteComment(comment_id).catch(() => {
+      // Rollback: restore state if server fails
       setComments(previousComments);
       setCommentCount((curr) => curr + 1);
-      toast.error("Delete failed. Restoring comment.");
+      toast.error("Delete failed. Restoring...");
     });
   };
 
@@ -43,11 +42,8 @@ const ArticleComments = ({ setCommentCount }) => {
 
   return (
     <div className="articleComments">
-      {/* Passing setters to allow AddComment to update this list and the parent count */}
       <AddComment setComments={setComments} setCommentCount={setCommentCount} />
-      
       <h3>Comments ({comments.length})</h3>
-      
       {comments.length === 0 ? (
         <p>No comments yet.</p>
       ) : (
