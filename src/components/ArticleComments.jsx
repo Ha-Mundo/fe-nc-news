@@ -6,7 +6,7 @@ import AddComment from "./AddComment";
 import Loader from "./Loader";
 import toast from "react-hot-toast";
 
-const ArticleComments = () => {
+const ArticleComments = ({ setCommentCount }) => {
   const { article_id } = useParams();
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,26 +19,23 @@ const ArticleComments = () => {
         setComments(res);
         setIsLoading(false);
       })
-      .catch((err) => {
-        console.error(err);
-        setIsLoading(false);
-      });
+      .catch(() => setIsLoading(false));
   }, [article_id]);
 
   const onDelete = (comment_id) => {
-    // 1. Keep a backup of current comments for potential rollback
+    // Save current state for potential rollback
     const previousComments = [...comments];
 
-    // 2. Optimistic Update: Remove from UI immediately
+    // Optimistic Update: Update local list and parent counter immediately
     setComments((prev) => prev.filter((c) => c.comment_id !== comment_id));
-    toast.success("Comment removed");
+    setCommentCount((curr) => curr - 1);
+    toast.success("Comment deleted");
 
-    // 3. Perform actual delete on server
     deleteComment(comment_id).catch((err) => {
-      console.error("Delete error:", err);
-      // 4. Rollback: If server fails, restore the previous state
+      // Rollback: Revert UI if server fails
       setComments(previousComments);
-      toast.error("Failed to delete. Restoring comment...");
+      setCommentCount((curr) => curr + 1);
+      toast.error("Delete failed. Restoring comment.");
     });
   };
 
@@ -46,12 +43,13 @@ const ArticleComments = () => {
 
   return (
     <div className="articleComments">
-      <AddComment setComments={setComments} />
+      {/* Passing setters to allow AddComment to update this list and the parent count */}
+      <AddComment setComments={setComments} setCommentCount={setCommentCount} />
       
       <h3>Comments ({comments.length})</h3>
       
       {comments.length === 0 ? (
-        <p className="empty-msg">No comments yet.</p>
+        <p>No comments yet.</p>
       ) : (
         <ul className="commentList">
           {comments.map((comment) => (
@@ -61,13 +59,8 @@ const ArticleComments = () => {
                 <span>{new Date(comment.created_at).toLocaleDateString()}</span>
               </div>
               <p>{comment.body}</p>
-
               {user?.username === comment.author && (
-                <button
-                  type="button"
-                  className="deleteBtn"
-                  onClick={() => onDelete(comment.comment_id)}
-                >
+                <button type="button" className="deleteBtn" onClick={() => onDelete(comment.comment_id)}>
                   Delete
                 </button>
               )}
