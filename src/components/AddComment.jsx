@@ -19,18 +19,14 @@ const AddComment = ({ setComments, setCommentCount }) => {
 
     postComment(article_id, { username: user.username, body: commentBody })
       .then((res) => {
-        // Update local comment list (ArticleComments state)
+        // Update local UI list
         setComments((prev) => [res[0], ...prev]);
-        
-        // Update dynamic counter in the main page (ArticleById state)
+        // Increment global counter in ArticleById
         setCommentCount((curr) => curr + 1);
-        
         setCommentBody("");
         toast.success("Posted!", { id: loadingToast });
       })
-      .catch(() => {
-        toast.error("Failed to post.", { id: loadingToast });
-      })
+      .catch(() => toast.error("Failed to post.", { id: loadingToast }))
       .finally(() => setIsSubmitting(false));
   };
 
@@ -40,7 +36,7 @@ const AddComment = ({ setComments, setCommentCount }) => {
         <form onSubmit={handleComment} className="comment_form">
           <textarea
             required
-            disabled={isSubmitting} // Disable during API call
+            disabled={isSubmitting}
             onChange={(e) => setCommentBody(e.target.value)}
             value={commentBody}
             placeholder="Add a comment..."
