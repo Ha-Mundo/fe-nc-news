@@ -234,11 +234,6 @@ transition: border-color 0.2s ease, box-shadow 0.2s ease;
   text-transform: capitalize;
 }
 
-.article-icons {
-  align-items: center;
-  display: flex;
-}
-
 /* --- Animations --- */
 /* Loading text fade animation (smooth blink) */
 .loading-txt {
