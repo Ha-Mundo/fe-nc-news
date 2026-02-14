@@ -53,9 +53,3 @@ export const deleteComment = comment_id => {
     return res;
   });
 };
-
-export const updateCommentVote = (comment_id, inc_votes) => {
-  return newsApi.patch(`/comments/${comment_id}`, { inc_votes }).then(res => {
-    return res.data.comment.votes;
-  });
-};
