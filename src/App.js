@@ -21,8 +21,7 @@ function App() {
           iconTheme: {
              primary: "#4169e1",    
              secondary: "#ffffff", 
-   },
-
+          },
         }} 
       />
       
