@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../utils/Context";
 import { getComments, deleteComment } from "../utils/Api";
 import AddComment from "./AddComment";
+import CommentCard from "./CommentCard"; 
 import Loader from "./Loader";
 import toast from "react-hot-toast";
 
@@ -10,7 +10,6 @@ const ArticleComments = ({ setCommentCount }) => {
   const { article_id } = useParams();
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useContext(UserContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -24,17 +23,14 @@ const ArticleComments = ({ setCommentCount }) => {
 
   const onDelete = (comment_id) => {
     const previousComments = [...comments];
-
-    // Optimistic UI: remove comment and decrement parent counter immediately
     setComments((prev) => prev.filter((c) => c.comment_id !== comment_id));
     setCommentCount((curr) => curr - 1);
     toast.success("Comment deleted");
 
     deleteComment(comment_id).catch(() => {
-      // Rollback: restore state if server fails
       setComments(previousComments);
       setCommentCount((curr) => curr + 1);
-      toast.error("Delete failed. Restoring...");
+      toast.error("Delete failed.");
     });
   };
 
@@ -49,18 +45,11 @@ const ArticleComments = ({ setCommentCount }) => {
       ) : (
         <ul className="commentList">
           {comments.map((comment) => (
-            <li key={comment.comment_id} className="commentCard">
-              <div className="comment-meta">
-                <strong>{comment.author}</strong>
-                <span>{new Date(comment.created_at).toLocaleDateString()}</span>
-              </div>
-              <p>{comment.body}</p>
-              {user?.username === comment.author && (
-                <button type="button" className="deleteBtn" onClick={() => onDelete(comment.comment_id)}>
-                  Delete
-                </button>
-              )}
-            </li>
+            <CommentCard 
+              key={comment.comment_id} 
+              comment={comment} 
+              onDelete={onDelete} 
+            />
           ))}
         </ul>
       )}
