@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getComments, deleteComment } from "../utils/Api";
 import AddComment from "./AddComment";
-import CommentCard from "./CommentCard"; 
+import CommentCard from "./CommentCard";
 import Loader from "./Loader";
 import toast from "react-hot-toast";
 
@@ -23,14 +23,17 @@ const ArticleComments = ({ setCommentCount }) => {
 
   const onDelete = (comment_id) => {
     const previousComments = [...comments];
+    
+    // Optimistic UI for deletion
     setComments((prev) => prev.filter((c) => c.comment_id !== comment_id));
     setCommentCount((curr) => curr - 1);
     toast.success("Comment deleted");
 
     deleteComment(comment_id).catch(() => {
+      // Rollback on server failure
       setComments(previousComments);
       setCommentCount((curr) => curr + 1);
-      toast.error("Delete failed.");
+      toast.error("Failed to delete comment.");
     });
   };
 
@@ -41,7 +44,7 @@ const ArticleComments = ({ setCommentCount }) => {
       <AddComment setComments={setComments} setCommentCount={setCommentCount} />
       <h3>Comments ({comments.length})</h3>
       {comments.length === 0 ? (
-        <p>No comments yet.</p>
+        <p className="no-comments">No comments yet.</p>
       ) : (
         <ul className="commentList">
           {comments.map((comment) => (
