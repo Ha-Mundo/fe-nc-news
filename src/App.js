@@ -17,7 +17,12 @@ function App() {
         position="bottom-center" 
         toastOptions={{
           duration: 3000,
-          style: { background: '#333', color: '#fff' }
+          style: { background: '#333', color: '#fff' },
+          iconTheme: {
+             primary: "#4169e1",    
+             secondary: "#ffffff", 
+   },
+
         }} 
       />
       
