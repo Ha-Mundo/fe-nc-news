@@ -76,7 +76,7 @@ const ArticleById = () => {
         <div className="articleCard">
           <p>{article?.body}</p>
           {hasError && <p className="error">Something went wrong!</p>}
-          <div className="flex-row">
+          <div className="article-icons">
             <IconButton onClick={handleVote} disabled={!user?.username}>
               <ThumbUpTwoToneIcon
                 fontSize="large"
