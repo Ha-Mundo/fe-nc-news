@@ -1,32 +1,59 @@
-# NC-News app
+# NC-News (Frontend)
 
-This project is a demonstration for the use of **React**, **Node** and **Axios** to create a simple, responsive App.
-The purpose of this project was to consolidate my understanding of making a C.R.U.D application from a front end perspective.
+This repository contains the **frontend** application for a full-stack news platform. It is built with **React** and connects to a dedicated backend API to deliver a dynamic, real-time user experience.
 
-The project has a default, logged-in user, **tinkle 122**.
+The goal of this project was to build a robust interface that handles complex data structures, advanced state management, and provides a seamless C.R.U.D experience.
 
-As user You can:
+The project features a default, logged-in user: **tickle122**.
 
-- read articles and vote for it.
-- You can also comment on any article, update or even delete your own comment.
-- You can sort article by topics, article date and by author name as well.
-- You can sort by ascending or descending order
+## 🚀 Key Features
 
-### Links to the app
+### Articles & Interactions
+- **Browse & Filter**: Explore articles by topic with a responsive layout.
+- **Dynamic Voting**: Upvote or downvote articles with immediate visual feedback.
+- **Voting Persistence**: Uses `localStorage` to ensure a user's vote status is remembered across sessions and navigation.
+- **Advanced Sorting**: Sort articles by date, author, or topic in both ascending and descending order.
 
-- **[nc-news-22](https://nc-news-22.netlify.app/)**
+### Modern Comment System
+- **Real-time Updates**: Add comments with immediate UI injection.
+- **Optimistic UI & Rollback**: Actions like deleting comments are reflected instantly. If the server call fails, the app automatically performs a "rollback" to restore data integrity.
+- **Lifting State Up**: Article comment counters are synchronized across different components in real-time without page refreshes.
+- **User Control**: Users can manage and delete their own comments.
 
-- **[API Repository](https://github.com/Ha-Mundo/be-nc-news)**
+### Enhanced UX
+- **Toast Notifications**: Integrated `react-hot-toast` for elegant, real-time feedback on user actions.
+- **Responsive UI**: Optimized for mobile, tablet, and desktop screens.
+- **Modular Code**: Clean architecture using specific components (like `CommentCard`) for better maintainability.
 
 ---
 
-## Setting up the project
+## 🛠️ Technologies Used
 
-If you want to work with this repository locally you will need to clone it onto your local machine. To do this, navigate to where in your file system you want the repository to be saved in the command line, and run the following command:
+- **Framework**: React (Hooks, Context API, React Router)
+- **Styling**: CSS3, Material UI Icons
+- **Data Fetching**: Axios
+- **Feedback**: React Hot Toast
+- **Backend API**: [Hosted on Render](https://be-nc-news-hiai.onrender.com/api)
 
+---
+
+## 🔗 Links
+
+- **Live Demo:** [nc-news-22](https://nc-news-22.netlify.app/)
+- **Backend API Repository:** [be-nc-news](https://github.com/Ha-Mundo/be-nc-news)
+
+---
+
+### 1. Clone the repository
+```bash
 git clone https://github.com/Ha-Mundo/fe-nc-news.git
 
-### Step 1 - Install all dependencies
+cd fe-nc-news
+```
+
+---
+
+### 2. Install all dependencies
 
 ```bash
 npm i
@@ -34,10 +61,12 @@ npm i
 
 ---
 
-### Step 2 - Run App in the browser
+### 3. Run App in the browser
 
 ```bash
 npm start
 ```
 
+#### The app will open automatically at http://localhost:3000
 ---
+Developed as part of a coding bootcamp to demonstrate frontend proficiency in a full-stack ecosystem.
